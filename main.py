@@ -19,7 +19,32 @@ def load_images():
 
 def main():
     '''main driver. handles user input and updates the game state'''
-    pass
+    # only done once before the while loop
+    pygame.init()
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    clock = pygame.time.Clock()
+    screen.fill(pygame.Color('white'))
+    game_state = engine.game()
+    load_images() 
+    running = True
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                # get the mouse position
+                pos = pygame.mouse.get_pos()
+                # get the square that the mouse is on
+                row, col = pos[1] // SQ_SIZE, pos[0] // SQ_SIZE
+                # get the piece that is on that square
+                piece = game_state.board[row][col]
+                # if the piece is a white piece and it is the player's turn, move the piece
+                if piece.isupper() and game_state.turn == 'white':
+                    game_state.move(row, col)
+                # if the piece is a black piece and it is the player's turn, move the piece
+                elif piece.islower() and game_state.turn == 'black':
+                    game_state.move(row, col)
 
 
 if __name__ == "__main__":
