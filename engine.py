@@ -31,14 +31,15 @@ class game:
         self.board[end_pos[0]][end_pos[1]] = piece
         self.board[start_pos[0]][start_pos[1]] = ' '
         # update castling
-        if piece == 'k':
-            self.castling['white']['king'] = False
-        elif piece == 'K':
-            self.castling['black']['king'] = False
-        elif piece == 'q':
-            self.castling['white']['queen'] = False
-        elif piece == 'Q':
-            self.castling['black']['queen'] = False
+        match piece:
+            case 'k':
+                self.castling['white']['king'] = False
+            case 'K':
+                self.castling['black']['king'] = False
+            case 'q':
+                self.castling['white']['queen'] = False
+            case 'Q':
+                self.castling['black']['queen'] = False
         # update history
         self.history.append((start_pos, end_pos, piece, end_piece))
         # update turn
@@ -83,33 +84,20 @@ class game:
                 elif end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1]:
                     return (end_piece == ' ' and start_pos[0] == 1)
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
+                    return end_piece.islower()
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.isupper()
+                    return end_piece.islower()
                 return False
             case 'P': # white pawn
                 if end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1]:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1]:
-                    if end_piece == ' ' and start_pos[0] == 6:
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' ' and start_pos[0] == 6
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
+                    return end_piece.isupper()
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] + 1:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece.isupper()
+                return False
             case 'r': # black rook
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
                     if end_piece == ' ':
