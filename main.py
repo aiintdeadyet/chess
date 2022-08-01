@@ -73,17 +73,23 @@ def main():
     game_state = engine.game()
     load_images() 
     running = True
+    mouse_click = []
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                running = False # ends the game
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                pass
+                location = pygame.mouse.get_pos()
+                location = (location[1] // SQ_SIZE, location[0] // SQ_SIZE)
+                mouse_click.append(location) # returns a tuple (x, y)
+                if len(mouse_click) == 2:
+                    game_state.move(mouse_click[0], mouse_click[1])
+                    mouse_click.clear()
             
-            draw_game(screen, game_state)
-            clock.tick(MAX_FPS)
-            pygame.display.flip()
+        draw_game(screen, game_state)
+        clock.tick(MAX_FPS)
+        pygame.display.flip()
 
 
 
