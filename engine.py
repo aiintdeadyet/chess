@@ -1,6 +1,9 @@
 # Class to store information about the current game
 
 
+from sympy import re
+
+
 class game:
     '''makes new game objects'''
     def __init__(self):
@@ -100,84 +103,40 @@ class game:
                 return False
             case 'r': # black rook
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece == ' '
+                return False
             case 'R': # white rook
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece == ' '
+                return False
             case 'n': # black knight
                 if end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1] + 1:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1] + 1:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece == ' '
+                return False
             case 'N': # white knight
                 if end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1] + 1:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1] + 1:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '                    
                 elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece == ' '
+                return False
             case 'b': # black bishop
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
+                    return end_piece.isupper()
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece.isupper()
+                return False
             case 'B': # white bishop
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
                     if end_piece == ' ':
