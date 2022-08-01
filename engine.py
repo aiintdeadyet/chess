@@ -21,8 +21,8 @@ class game:
 
     def move(self, start_pos, end_pos):
         '''moves piece from start_pos to end_pos'''
-        # if not self.check(start_pos, end_pos):
-        #     return
+        if not self.check_move(start_pos, end_pos):
+            raise Exception('invalid move')
         # get piece at start_pos
         piece = self.board[start_pos[0]][start_pos[1]]
         # get piece at end_pos
