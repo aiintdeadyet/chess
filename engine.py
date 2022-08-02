@@ -156,87 +156,39 @@ class game:
                 return False
             case 'Q': # white queen
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
+                    return end_piece.isupper()
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
+                    return end_piece.isupper()
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] + 1:
-                    if end_piece.islower():
-                        return True
-                    else:
-                        return False
+                    return end_piece.islower()
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] + 1:
-                    if end_piece.islower():
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece.islower()
+                return False
             case 'k': # black king
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1]:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
+                    return end_piece.isupper()
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1]:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
+                    return end_piece.isupper()
                 elif end_pos[0] == start_pos[0] and end_pos[1] == start_pos[1] - 1:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
+                    return end_piece.isupper()
                 elif end_pos[0] == start_pos[0] and end_pos[1] == start_pos[1] + 1:
-                    if end_piece.isupper():
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece.isupper()
+                return False
             case 'K': # white king
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    if end_piece == ' ':
-                        return True
-                    else:
-                        return False
+                    return end_piece == ' '
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1]:
-                    if end_piece.islower():
-                        return True
-                    else:
-                        return False
+                    return end_piece.islower()
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1]:
-                    if end_piece.islower():
-                        return True
-                    else:
-                        return False
+                    return end_piece.islower()
                 elif end_pos[0] == start_pos[0] and end_pos[1] == start_pos[1] - 1:
-                    if end_piece.islower():
-                        return True
-                    else:
-                        return False
+                    return end_piece.islower()
                 elif end_pos[0] == start_pos[0] and end_pos[1] == start_pos[1] + 1:
-                    if end_piece.islower():
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
+                    return end_piece.islower()
+                return False
 
             
