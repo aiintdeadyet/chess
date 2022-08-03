@@ -74,6 +74,7 @@ def main():
     load_images() 
     running = True
     mouse_click = []
+    # screen.set_caption(str(game_state.turn) + " turn", icontitle=None)
 
     while running:
         for event in pygame.event.get():

@@ -1,6 +1,9 @@
 # Class to store information about the current game
 
 
+from sympy import true
+
+
 class game:
     '''makes new game objects'''
     def __init__(self):
@@ -22,7 +25,7 @@ class game:
     def move(self, start_pos, end_pos):
         '''moves piece from start_pos to end_pos'''
         if not self.check_move(start_pos, end_pos):
-            raise Exception('invalid move')
+            return
         # get piece at start_pos
         piece = self.board[start_pos[0]][start_pos[1]]
         # get piece at end_pos
@@ -76,6 +79,11 @@ class game:
         piece = self.board[start_pos[0]][start_pos[1]]
         # get piece at end_pos
         end_piece = self.board[end_pos[0]][end_pos[1]]
+        # turn check
+        if self.turn == 'white' and piece.islower():
+                return False
+        elif self.turn == 'black' and piece.isupper():
+                return False
         # check if move is valid
         match (piece):
             case 'p': # black pawn
@@ -84,9 +92,9 @@ class game:
                 elif end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1]:
                     return (end_piece == ' ' and start_pos[0] == 1)
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.islower()
+                    return end_piece.isupper()
                 elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.islower()
+                    return end_piece.isupper()
                 return False
             case 'P': # white pawn
                 if end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1]:
@@ -94,9 +102,9 @@ class game:
                 elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1]:
                     return end_piece == ' ' and start_pos[0] == 6
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
+                    return end_piece.islower()
                 elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.isupper()
+                    return end_piece.islower()
                 return False
             case 'r': # black rook
                 if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
