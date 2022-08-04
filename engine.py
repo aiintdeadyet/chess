@@ -24,8 +24,6 @@ class game:
 
     def move(self, start_pos, end_pos):
         '''moves piece from start_pos to end_pos'''
-        if not self.check_move(start_pos, end_pos):
-            return
         # get piece at start_pos
         piece = self.board[start_pos[0]][start_pos[1]]
         # get piece at end_pos
@@ -73,130 +71,46 @@ class game:
         else:
             self.turn = 'white'
 
-    def check_move(self, start_pos, end_pos):
-        '''checks if move is valid'''
-        # get piece at start_pos
-        piece = self.board[start_pos[0]][start_pos[1]]
-        # get piece at end_pos
-        end_piece = self.board[end_pos[0]][end_pos[1]]
-        # turn check
-        if self.turn == 'white' and piece.islower():
-                return False
-        elif self.turn == 'black' and piece.isupper():
-                return False
-        # check if move is valid
-        match (piece):
-            case 'p': # black pawn
-                if end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1]:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1]:
-                    return (end_piece == ' ' and start_pos[0] == 1)
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.isupper()
-                return False
-            case 'P': # white pawn
-                if end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1]:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1]:
-                    return end_piece == ' ' and start_pos[0] == 6
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.islower()
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.islower()
-                return False
-            case 'r': # black rook
-                if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    return end_piece == ' '
-                return False
-            case 'R': # white rook
-                if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    return end_piece == ' '
-                return False
-            case 'n': # black knight
-                if end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece == ' '
-                return False
-            case 'N': # white knight
-                if end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] + 2 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece == ' '                    
-                elif end_pos[0] == start_pos[0] - 2 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece == ' '
-                return False
-            case 'b': # black bishop
-                if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                return False
-            case 'B': # white bishop
-                if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                return False
-            case 'q': # black queen
-                if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.islower()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.islower()
-                return False
-            case 'Q': # white queen
-                if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.islower()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.islower()
-                return False
-            case 'k': # black king
-                if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1]:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1]:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.isupper()
-                elif end_pos[0] == start_pos[0] and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.isupper()
-                return False
-            case 'K': # white king
-                if end_pos[0] == start_pos[0] and end_pos[1] != start_pos[1]:
-                    return end_piece == ' '
-                elif end_pos[0] == start_pos[0] - 1 and end_pos[1] == start_pos[1]:
-                    return end_piece.islower()
-                elif end_pos[0] == start_pos[0] + 1 and end_pos[1] == start_pos[1]:
-                    return end_piece.islower()
-                elif end_pos[0] == start_pos[0] and end_pos[1] == start_pos[1] - 1:
-                    return end_piece.islower()
-                elif end_pos[0] == start_pos[0] and end_pos[1] == start_pos[1] + 1:
-                    return end_piece.islower()
-                return False
+    def show_move(self, x, y):
+        '''shows possible moves for piece at x, y'''
+        # get piece at x, y
+        piece = self.board[x][y]
+        # get possible moves
+        moves = self.get_moves(piece, x, y)
+        # show moves
+        for move in moves:
+            print(move)
 
+    def get_moves(self, piece, x, y):
+        '''returns possible moves for piece at x, y'''
+        # get possible moves
+        moves = []
+        match piece:
+            case 'p':
+                moves = self.get_Bpawn_moves(x, y)
+            case 'r':
+                moves = self.get_rook_moves(x, y)
+            case 'n':
+                moves = self.get_knight_moves(x, y)
+            case 'b':
+                moves = self.get_bishop_moves(x, y)
+            case 'q':
+                moves = self.get_queen_moves(x, y)
+            case 'k':
+                moves = self.get_king_moves(x, y)
+            case 'K':
+                moves = self.get_king_moves(x, y)
+            case 'P':
+                moves = self.get_Wpawn_moves(x, y)
+            case 'R':
+                moves = self.get_rook_moves(x, y)
+            case 'N':
+                moves = self.get_knight_moves(x, y)
+            case 'B':
+                moves = self.get_bishop_moves(x, y)
+            case 'Q':
+                moves = self.get_queen_moves(x, y)
+        return moves
+
+    
             
