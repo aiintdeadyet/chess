@@ -81,10 +81,9 @@ class game:
         # get piece at x, y
         piece = self.board[x][y]
         # get possible moves
-        moves = self.get_moves(piece, x, y)
+        moves = self.get_moves(piece, y, x)
         # show moves
-        for move in moves:
-            print(move)
+        return moves
 
     def get_moves(self, piece, y, x):
         '''returns possible moves for piece at x, y'''

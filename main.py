@@ -1,3 +1,4 @@
+from turtle import color
 import pygame
 import engine
 
@@ -19,17 +20,23 @@ def load_images():
 
 def draw_game(screen, game, move=[]): 
     '''draws the board and peaces'''
-    draw_board(screen, move) # helper function
+    draw_board(screen) # helper function
+    draw_moves(screen, move) # helper function
     draw_pieces(screen, game) # helper function
 
 # helper functions for draw_game
-def draw_board(screen, move):
+def draw_board(screen):
     '''draws the board'''
     colors = [pygame.Color('white'), pygame.Color('gray')]
     for i in range(DIMENSIONS):
         for j in range(DIMENSIONS):
             color = colors[((i+j) % 2)]
             pygame.draw.rect(screen, color, pygame.Rect(j*SQ_SIZE, i*SQ_SIZE, SQ_SIZE, SQ_SIZE))
+
+def draw_moves(screen, move):
+    '''draws the moves'''
+    color = pygame.Color('blue')
+    for i in range(len(move)):
 
 def draw_pieces(screen, game):
     '''draws the pieces'''
@@ -89,7 +96,8 @@ def main():
                     game_state.move(mouse_click[0], mouse_click[1])
                     mouse_click.clear()
                 elif len(mouse_click) == 1:
-                    move = game_state.show_move(mouse_click[0][1], mouse_click[0][1])
+                    move = game_state.show_move(mouse_click[0][0], mouse_click[0][1])
+                    print(move)
             
         draw_game(screen, game_state, move)
         clock.tick(MAX_FPS)
