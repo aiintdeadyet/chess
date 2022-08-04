@@ -8,7 +8,7 @@ class game:
     '''makes new game objects'''
     def __init__(self):
         '''initializes game'''
-        # board is 8x8 2D list of pieces
+        # board is 8x8 2D list of pieces [y][x]
         self.board = [['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
                       ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
                       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -21,6 +21,11 @@ class game:
         self.castling = {'white': {'king': True, 'queen': True},
                          'black': {'king': True, 'queen': True}}
         self.history = []
+
+    def print_board(self):
+        '''prints board'''
+        for row in self.board:
+            print(row)
 
     def move(self, start_pos, end_pos):
         '''moves piece from start_pos to end_pos'''
@@ -81,7 +86,7 @@ class game:
         for move in moves:
             print(move)
 
-    def get_moves(self, piece, x, y):
+    def get_moves(self, piece, y, x):
         '''returns possible moves for piece at x, y'''
         # get possible moves
         moves = []
@@ -112,5 +117,102 @@ class game:
                 moves = self.get_queen_moves(x, y)
         return moves
 
-    
+    def get_Bpawn_moves(self, y, x):
+        '''returns possible moves for black pawn at x, y'''
+        moves = []
+        # move forward
+        if self.board[x][y + 1] == ' ':
+            moves.append((x, y + 1))
+        # move forward 2
+        if x == 1 and self.board[x][y + 1] == ' ' and self.board[x][y + 2] == ' ':
+            moves.append((x, y + 2))
+        # capture diagonally
+        if y > 0 and self.board[x + 1][y - 1] != ' ':
+            moves.append((x + 1, y - 1))
+        if y < 7 and self.board[x + 1][y + 1] != ' ':
+            moves.append((x + 1, y + 1))
+        return moves
             
+    def get_Wpawn_moves(self, y, x):
+        '''returns possible moves for white pawn at x, y'''
+        moves = []
+        # move forward
+        if self.board[x][y - 1] == ' ':
+            moves.append((x, y - 1))
+        # move forward 2
+        if x == 6 and self.board[x][y - 1] == ' ' and self.board[x][y - 2] == ' ':
+            moves.append((x, y - 2))
+        # capture diagonally
+        if y > 1 and self.board[x - 1][y - 1] != ' ':
+            moves.append((x - 1, y - 1))
+        if y < 6 and self.board[x - 1][y + 1] != ' ':
+            moves.append((x - 1, y + 1))
+        return moves
+    
+    def get_rook_moves(self, y, x):
+        '''returns possible moves for rook at x, y'''
+        moves = []
+        # move up
+        for i in range(x - 1, -1, -1):
+            if self.board[i][y] == ' ':
+                moves.append((i, y))
+            else:
+                break
+        # move down
+        for i in range(x + 1, 8):
+            if self.board[i][y] == ' ':
+                moves.append((i, y))
+            else:
+                break
+        # move left
+        for i in range(y - 1, -1, -1):
+            if self.board[x][i] == ' ':
+                moves.append((x, i))
+            else:
+                break
+        # move right
+        for i in range(y + 1, 8):
+            if self.board[x][i] == ' ':
+                moves.append((x, i))
+            else:
+                break
+        return moves
+
+    def get_knight_moves(self, y, x):
+        '''returns possible moves for knight at x, y'''
+        moves = []
+        # move up 2, left 1
+        if x > 1 and y > 0 and self.board[x - 2][y - 1] != ' ':
+            moves.append((x - 2, y - 1))
+        # move up 2, right 1
+        if x > 1 and y < 7 and self.board[x - 2][y + 1] != ' ':
+            moves.append((x - 2, y + 1))
+        # move up 1, left 2
+        if x > 0 and y > 1 and self.board[x - 1][y - 2] != ' ':
+            moves.append((x - 1, y - 2))
+        # move up 1, right 2
+        if x > 0 and y < 6 and self.board[x - 1][y + 2] != ' ':
+            moves.append((x - 1, y + 2))
+        # move down 2, left 1
+        if x < 6 and y > 0 and self.board[x + 2][y - 1] != ' ':
+            moves.append((x + 2, y - 1))
+        # move down 2, right 1
+        if x < 6 and y < 7 and self.board[x + 2][y + 1] != ' ':
+            moves.append((x + 2, y + 1))
+        # move down 1, left 2
+        if x < 7 and y > 1 and self.board[x + 1][y - 2] != ' ':
+            moves.append((x + 1, y - 2))
+        # move down 1, right 2
+        if x < 7 and y < 6 and self.board[x + 1][y + 2] != ' ':
+            moves.append((x + 1, y + 2))
+        return moves
+
+
+def main():
+    '''used for testing'''
+    chess = game()
+    chess.print_board()
+
+
+if __name__ == '__main__':
+    main()

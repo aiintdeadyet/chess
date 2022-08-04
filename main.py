@@ -17,13 +17,13 @@ def load_images():
         IMAGES[piece] = pygame.transform.scale(pygame.image.load("pieces/" + str(piece) + ".png"), (SQ_SIZE, SQ_SIZE))
 
 
-def draw_game(screen, game):
+def draw_game(screen, game, move=[]): 
     '''draws the board and peaces'''
-    draw_board(screen) # helper function
+    draw_board(screen, move) # helper function
     draw_pieces(screen, game) # helper function
 
 # helper functions for draw_game
-def draw_board(screen):
+def draw_board(screen, move):
     '''draws the board'''
     colors = [pygame.Color('white'), pygame.Color('gray')]
     for i in range(DIMENSIONS):
@@ -77,6 +77,7 @@ def main():
     # screen.set_caption(str(game_state.turn) + " turn", icontitle=None)
 
     while running:
+        move = []
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False # ends the game
@@ -87,8 +88,10 @@ def main():
                 if len(mouse_click) == 2:
                     game_state.move(mouse_click[0], mouse_click[1])
                     mouse_click.clear()
+                elif len(mouse_click) == 1:
+                    move = game_state.show_move(mouse_click[0][1], mouse_click[0][1])
             
-        draw_game(screen, game_state)
+        draw_game(screen, game_state, move)
         clock.tick(MAX_FPS)
         pygame.display.flip()
 
